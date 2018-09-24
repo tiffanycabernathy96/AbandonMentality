@@ -59,6 +59,7 @@ public class CharacterControllerMovement : MonoBehaviour
                     {
                         navMeshAgent.destination = puzzleSelected.GetTransform().position;
                         transform.rotation = puzzleSelected.positionObject.transform.rotation;
+                        puzzleSelected.puzzleActivated = true;
                     }
                     
                 }
