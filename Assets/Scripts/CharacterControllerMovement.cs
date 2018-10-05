@@ -19,11 +19,13 @@ public class CharacterControllerMovement : MonoBehaviour
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        Camera camera = GetComponent<Camera>();
+        navMeshAgent.Warp(camera.transform.position);
         if (defaultCursorTexture)
             Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(Input.GetKeyDown("escape"))
         {
