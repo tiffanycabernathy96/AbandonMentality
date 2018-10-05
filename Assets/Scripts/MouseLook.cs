@@ -15,7 +15,7 @@ public class MouseLook : MonoBehaviour
     float rotationX = 0F;
     float rotationY = 0F;
     Quaternion originalRotation;
-    void Update()
+    void FixedUpdate()
     {
         if (axes == RotationAxes.MouseXAndY)
         {
