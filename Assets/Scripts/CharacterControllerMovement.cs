@@ -19,11 +19,13 @@ public class CharacterControllerMovement : MonoBehaviour
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        Camera camera = GetComponent<Camera>();
+        navMeshAgent.Warp(camera.transform.position);
         if (defaultCursorTexture)
             Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(Input.GetKeyDown("escape"))
         {
@@ -59,6 +61,7 @@ public class CharacterControllerMovement : MonoBehaviour
                     {
                         navMeshAgent.destination = puzzleSelected.GetTransform().position;
                         transform.rotation = puzzleSelected.positionObject.transform.rotation;
+                        puzzleSelected.puzzleActivated = true;
                     }
                     
                 }
