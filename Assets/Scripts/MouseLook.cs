@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Collections;
 public class MouseLook : MonoBehaviour
 {
     public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
-    private RotationAxes axes = RotationAxes.MouseXAndY;
-    private float sensitivityX = 8F;
-    private float sensitivityY = 8F;
-    private float minimumX = -360F;
-    private float maximumX = 360F;
-    private float minimumY = -60F;
-    private float maximumY = 60F;
+    public RotationAxes axes = RotationAxes.MouseXAndY;
+    public float sensitivityX = 15F;
+    public float sensitivityY = 15F;
+    public float minimumX = -360F;
+    public float maximumX = 360F;
+    public float minimumY = -60F;
+    public float maximumY = 60F;
     float rotationX = 0F;
     float rotationY = 0F;
     Quaternion originalRotation;
-    void FixedUpdate()
+    void Update()
     {
         if (axes == RotationAxes.MouseXAndY)
         {
@@ -46,17 +46,17 @@ public class MouseLook : MonoBehaviour
     void Start()
     {
         // Make the rigid body not change rotation
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb)
-            rb.freezeRotation = true;
+        Rigidbody rigidB = GetComponent<Rigidbody>();
+        if (rigidB)
+            rigidB.freezeRotation = true;
         originalRotation = transform.localRotation;
     }
     public static float ClampAngle(float angle, float min, float max)
     {
-        if (angle <= min)
-            angle = min;
-        if (angle >= max)
-         angle = max;
+        if (angle  < -360F)
+         angle += 360F;
+        if (angle > 360F)
+         angle -= 360F;
         return Mathf.Clamp(angle, min, max);
     }
 }

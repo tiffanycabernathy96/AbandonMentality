@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class CharacterControllerMovement : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
@@ -15,6 +15,7 @@ public class CharacterControllerMovement : MonoBehaviour
     public Texture2D interactableCursorTexture;
     private Piece pieceSelected;
     private Vector3 piecePosition;
+    [SerializeField] private Image inventoryImage;
 
     void Awake()
     {
@@ -85,6 +86,15 @@ public class CharacterControllerMovement : MonoBehaviour
                     navMeshAgent.isStopped = false;//Tried find path to that location
                 }
             }
+        }
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            //Display/Hide Inventory
+            inventoryImage.enabled = !inventoryImage.enabled;
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            //Display/Hide Pause Menu
         }
     }
 }
