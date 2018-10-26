@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Puzzle : MonoBehaviour {
     //This is used in order to determine where the character should move when the puzzle is clicked
     public GameObject positionObject;
@@ -17,5 +17,18 @@ public class Puzzle : MonoBehaviour {
     {
         return positionObject.transform;
     }
-    
+
+    //If you are going use canvas for your puzzle this can be used. 
+    public Image puzzleImage;
+    public Image backImage;
+    public void OpenPuzzle()
+    {
+        if(puzzleImage)
+        {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            puzzleImage.enabled = true;
+            backImage.enabled = true;
+            Time.timeScale = 0;
+        }
+    }
 }
