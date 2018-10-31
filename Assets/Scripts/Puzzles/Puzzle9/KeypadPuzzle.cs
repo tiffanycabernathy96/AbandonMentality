@@ -7,6 +7,7 @@ public class KeypadPuzzle : MonoBehaviour {
 
     public Button b_1,b_2,b_3,b_4,b_5,b_6,b_7,b_8,b_9,b_0,b_pound,b_X, b_back;
     public Image keypadImg, backImg;
+    public OpenDoor door;
     List<int> inputtedNumbers = new List<int>();
     public Material m_1, m_2, m_3, m_4, m_5, m_6, m_7, m_8, m_9, m_0, m_pound, m_X, m_valid, m_invalid, m_norm;
 
@@ -95,6 +96,7 @@ public class KeypadPuzzle : MonoBehaviour {
                     if (inputtedNumbers.Count == 5)
                     {
                         keypadImg.material = m_valid;
+                        door.openDoor();
                     }
                     else
                     {
