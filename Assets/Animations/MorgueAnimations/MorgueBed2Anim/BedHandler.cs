@@ -16,7 +16,7 @@ public class BedHandler : MonoBehaviour
 
             if (Physics.Raycast(ray.origin, ray.direction, out rayCastHit, Mathf.Infinity))
             {
-                Debug.Log("Mouse Click");
+                //Debug.Log("Mouse Click");
                 BedAnim bed = rayCastHit.transform.GetComponent<BedAnim>();
                 if (bed)
                 {

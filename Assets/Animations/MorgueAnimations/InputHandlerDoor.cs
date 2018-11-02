@@ -16,7 +16,7 @@ public class InputHandlerDoor : MonoBehaviour
 
             if (Physics.Raycast(ray.origin, ray.direction, out rayCastHit, Mathf.Infinity))
             {
-                Debug.Log("Mouse Click");
+                //Debug.Log("Mouse Click");
                 MorgueDoor door = rayCastHit.transform.GetComponent<MorgueDoor>();
                 if (door)
                 {
