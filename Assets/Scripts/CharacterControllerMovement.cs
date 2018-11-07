@@ -20,12 +20,9 @@ public class CharacterControllerMovement : MonoBehaviour
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        //Camera camera = GetComponent<Camera>();
-        //navMeshAgent.Warp(camera.transform.position);
         if (defaultCursorTexture)
             Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.Auto);
     }
-
     void FixedUpdate()
     {
         if(Input.GetKeyDown("escape"))
@@ -37,7 +34,7 @@ public class CharacterControllerMovement : MonoBehaviour
         RaycastHit hit;
         if (Time.timeScale == 1)
         {
-            if (Physics.Raycast(ray, out hit, 1000))
+            if (Physics.Raycast(ray, out hit, 500))
             {
                 if (hit.collider.CompareTag("Puzzle") || hit.collider.CompareTag("Piece"))
                 {
@@ -53,7 +50,7 @@ public class CharacterControllerMovement : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
             {
                 //out hit allows us to get more information about what we hit by passig it by reference
-                if (Physics.Raycast(ray, out hit, 100))
+                if (Physics.Raycast(ray, out hit, 50))
                 {
                     if (hit.collider.CompareTag("Puzzle"))
                     {
