@@ -10,44 +10,15 @@ public class KeypadPuzzle : MonoBehaviour {
     public OpenDoor door;
     List<int> inputtedNumbers = new List<int>();
     public Material m_1, m_2, m_3, m_4, m_5, m_6, m_7, m_8, m_9, m_0, m_pound, m_X, m_valid, m_invalid, m_norm;
-
+    public Light red, green;
     // Use this for initialization
-    void Start () {
-
-        Button num0 = b_0.GetComponent<Button>();
-        Button num1 = b_1.GetComponent<Button>();
-        Button num2 = b_2.GetComponent<Button>();
-        Button num3 = b_3.GetComponent<Button>();
-        Button num4 = b_4.GetComponent<Button>();
-        Button num5 = b_5.GetComponent<Button>();
-        Button num6 = b_6.GetComponent<Button>();
-        Button num7 = b_7.GetComponent<Button>();
-        Button num8 = b_8.GetComponent<Button>();
-        Button num9 = b_9.GetComponent<Button>();
-        Button pound = b_pound.GetComponent<Button>();
-        Button numX = b_X.GetComponent<Button>();
-        Button back = b_back.GetComponent<Button>();
-
-        num0.onClick.AddListener(delegate { ButtonPressed(0); });
-        num1.onClick.AddListener(delegate { ButtonPressed(1); });
-        num2.onClick.AddListener(delegate { ButtonPressed(2); });
-        num3.onClick.AddListener(delegate { ButtonPressed(3); });
-        num4.onClick.AddListener(delegate { ButtonPressed(4); });
-        num5.onClick.AddListener(delegate { ButtonPressed(5); });
-        num6.onClick.AddListener(delegate { ButtonPressed(6); });
-        num7.onClick.AddListener(delegate { ButtonPressed(7); });
-        num8.onClick.AddListener(delegate { ButtonPressed(8); });
-        num9.onClick.AddListener(delegate { ButtonPressed(9); });
-        pound.onClick.AddListener(delegate { ButtonPressed(10); });
-        numX.onClick.AddListener(delegate { ButtonPressed(11); });
-        back.onClick.AddListener(delegate { ButtonPressed(12); });
-
+    void Awake () {
         keypadImg.material = m_norm;
     }
-    
-    void ButtonPressed(int buttonNum)
+   
+    public void ButtonPressed(int buttonNum)
     {
-        if (keypadImg.enabled == true)
+        if (keypadImg.enabled == true && Time.timeScale == 0)
         {
             switch (buttonNum)
             {
@@ -97,6 +68,8 @@ public class KeypadPuzzle : MonoBehaviour {
                     {
                         keypadImg.material = m_valid;
                         door.openDoor();
+                        red.enabled = false;
+                        green.enabled = true;
                     }
                     else
                     {
@@ -115,6 +88,10 @@ public class KeypadPuzzle : MonoBehaviour {
                     Time.timeScale = 1;
                     break;
             }
+        }
+        else
+        {
+            keypadImg.material = m_norm;
         }
     }
 }

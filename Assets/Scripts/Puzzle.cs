@@ -21,12 +21,17 @@ public class Puzzle : MonoBehaviour {
     //If you are going use canvas for your puzzle this can be used. 
     public Image puzzleImage;
     public Image backImage;
+    public Material imageMaterial;
+    
     public void OpenPuzzle()
     {
         if(puzzleImage)
         {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            Canvas currentCanvas = FindObjectOfType<Canvas>();
+            currentCanvas.GetComponent<CanvasGroup>().interactable = true;
             puzzleImage.enabled = true;
+            puzzleImage.material = imageMaterial;
             backImage.enabled = true;
             Time.timeScale = 0;
         }

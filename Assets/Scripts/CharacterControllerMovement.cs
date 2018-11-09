@@ -15,17 +15,19 @@ public class CharacterControllerMovement : MonoBehaviour
     public Texture2D interactableCursorTexture;
     private Piece pieceSelected;
     private Vector3 piecePosition;
+    private bool mapsShown = false;
     [SerializeField] private Image inventoryImage;
+    //[SerializeField] private GameObject maps;
+    [SerializeField] private Maps mapsScript;
 
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        //Camera camera = GetComponent<Camera>();
-        //navMeshAgent.Warp(camera.transform.position);
         if (defaultCursorTexture)
             Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.Auto);
+        //mapsScript = maps.GetComponent<Maps>();
+        //int testing = 0;
     }
-
     void FixedUpdate()
     {
         if(Input.GetKeyDown("escape"))
@@ -37,7 +39,7 @@ public class CharacterControllerMovement : MonoBehaviour
         RaycastHit hit;
         if (Time.timeScale == 1)
         {
-            if (Physics.Raycast(ray, out hit, 1000))
+            if (Physics.Raycast(ray, out hit, 25))
             {
                 if (hit.collider.CompareTag("Puzzle") || hit.collider.CompareTag("Piece"))
                 {
@@ -53,7 +55,7 @@ public class CharacterControllerMovement : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
             {
                 //out hit allows us to get more information about what we hit by passig it by reference
-                if (Physics.Raycast(ray, out hit, 100))
+                if (Physics.Raycast(ray, out hit, 25))
                 {
                     if (hit.collider.CompareTag("Puzzle"))
                     {
@@ -62,8 +64,8 @@ public class CharacterControllerMovement : MonoBehaviour
                         Puzzle puzzleSelected = hit.collider.GetComponent<Puzzle>();
                         if (puzzleSelected)
                         {
-                            navMeshAgent.destination = puzzleSelected.GetTransform().position;
-                            transform.rotation = puzzleSelected.positionObject.transform.rotation;
+                            //navMeshAgent.destination = puzzleSelected.GetTransform().position;
+                            //transform.rotation = puzzleSelected.positionObject.transform.rotation;
                             puzzleSelected.puzzleActivated = true;
                             puzzleSelected.OpenPuzzle();
                         }
@@ -78,7 +80,6 @@ public class CharacterControllerMovement : MonoBehaviour
                         if (pieceSelected)
                         {
                             pieceSelected.found = true;
-
                         }
                     }
                     else
@@ -99,6 +100,21 @@ public class CharacterControllerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.P))
         {
             //Display/Hide Pause Menu
+        }
+        else if (Input.GetKeyDown(KeyCode.M))
+        {
+            mapsShown = !mapsShown;
+            if (mapsShown)
+            {
+                mapsScript.DisplayMaps(navMeshAgent.transform.position.y);
+                Time.timeScale = 0;
+            }
+            else
+            {
+                mapsScript.HideMaps();
+                Time.timeScale = 1;
+            }
+                
         }
     }
 }
