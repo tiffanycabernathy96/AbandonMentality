@@ -31,11 +31,17 @@ public class Button0 : Puzzle {
               bedIsOpening = false;*/
             Debug.Log("set to false");
             doorIsOpening = false;
-            bedIsOpening = false;
         }
         else
         {
             doorIsOpening = false;
+            bedIsOpening = false;
+        }
+
+        if (bedIsOpening == true)
+        {
+            Animation morgueBed = MorgueBedAnswer.GetComponent<Animation>();
+            morgueBed.Play("morgueBedOpen");
             bedIsOpening = false;
         }
 

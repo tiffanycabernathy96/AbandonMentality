@@ -62,6 +62,7 @@ public class Button1 : Puzzle {
 
                 if (box.test() == "011100110110111101101110")
                 {
+                    Debug.Log("I should only enter once");
                     doorIsOpening = true;
                     bedIsOpening = true;
                 }
