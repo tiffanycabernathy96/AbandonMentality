@@ -10,9 +10,13 @@ public class Button1 : Puzzle {
     public Puzzle box;
     public bool doorIsOpening;
     public bool bedIsOpening;
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void Start()
+    {
+        box.MorgueAnswer = "01110011011011110110111";
+    }
+    // Update is called once per frame
+    void Update () {
         if(doorIsOpening == true)
         { 
             Animation morgueDoor = MorgueDoorAnswer.GetComponent<Animation>();
@@ -27,11 +31,17 @@ public class Button1 : Puzzle {
               bedIsOpening = false;*/
             Debug.Log("set to false");
             doorIsOpening = false;
-            bedIsOpening = false;
         }
         else
         {
             doorIsOpening = false;
+            bedIsOpening = false;
+        }
+
+        if(bedIsOpening == true)
+        {
+            Animation morgueBed = MorgueBedAnswer.GetComponent<Animation>();
+            morgueBed.Play("morgueBedOpen");
             bedIsOpening = false;
         }
 

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ClickChart : Puzzle {
 
     public Image image;
+    //public GameObject chart;
 	// Use this for initialization
 	void Start () {
         image.enabled = false;
@@ -21,7 +22,9 @@ public class ClickChart : Puzzle {
             if (Physics.Raycast(ray.origin, ray.direction, out rayCastHit, Mathf.Infinity))
             {
                 //clicked on the chart
-                ClickChart chart = rayCastHit.transform.GetComponent<ClickChart>();
+
+                ClickChart chart = rayCastHit.transform.gameObject.GetComponent<ClickChart>();
+                //ClickChart chart = rayCastHit.transform.GetComponent<ClickChart>();
                 if(chart)
                 {
                     image.enabled = !image.enabled;
