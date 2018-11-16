@@ -13,64 +13,70 @@ public class Button0 : Puzzle {
     public string answer;
     public bool doorIsOpening;
     public bool bedIsOpening;
+    public bool solved;
 
     // Update is called once per frame
     void Update()
     {
-        if (doorIsOpening == true)
+        if(!solved)
         {
-            Animation morgueDoor = MorgueDoorAnswer.GetComponent<Animation>();
-            morgueDoor.Play("morgueDoorOpen");
-
-            /*  if(bedIsOpening == true)
-              {
-                  Animation morgueBed = MorgueBedAnswer.GetComponent<Animation>();
-                  morgueBed.Play("morgueBedOpen");
-              }
-              doorIsOpening = false;
-              bedIsOpening = false;*/
-            Debug.Log("set to false");
-            doorIsOpening = false;
-        }
-        else
-        {
-            doorIsOpening = false;
-            bedIsOpening = false;
-        }
-
-        if (bedIsOpening == true)
-        {
-            Animation morgueBed = MorgueBedAnswer.GetComponent<Animation>();
-            morgueBed.Play("morgueBedOpen");
-            bedIsOpening = false;
-        }
-
-        //shouldnt this be specific for this obj?????
-        if (Input.GetMouseButtonDown(1))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit rayCastHit;
-
-            if (Physics.Raycast(ray.origin, ray.direction, out rayCastHit, Mathf.Infinity))
+            if (doorIsOpening == true)
             {
-                //Debug.Log("Mouse Click");
-                //MorgueDoor door = rayCastHit.transform.GetComponent<MorgueDoor>();
-                Button0 zero = rayCastHit.transform.GetComponent<Button0>();
-                if(zero)
+                Animation morgueDoor = MorgueDoorAnswer.GetComponent<Animation>();
+                morgueDoor.Play("morgueDoorOpen");
+
+                /*  if(bedIsOpening == true)
+                  {
+                      Animation morgueBed = MorgueBedAnswer.GetComponent<Animation>();
+                      morgueBed.Play("morgueBedOpen");
+                  }
+                  doorIsOpening = false;
+                  bedIsOpening = false;*/
+                Debug.Log("set to false");
+                doorIsOpening = false;
+            }
+            else
+            {
+                doorIsOpening = false;
+                bedIsOpening = false;
+            }
+
+            if (bedIsOpening == true)
+            {
+                Animation morgueBed = MorgueBedAnswer.GetComponent<Animation>();
+                morgueBed.Play("morgueBedOpen");
+                bedIsOpening = false;
+                solved = true;
+            }
+
+            //shouldnt this be specific for this obj?????
+            if (Input.GetMouseButtonDown(1))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit rayCastHit;
+
+                if (Physics.Raycast(ray.origin, ray.direction, out rayCastHit, Mathf.Infinity))
                 {
-                    box.MorgueAnswer += "0";
-                    Debug.Log(box.test());
+                    //Debug.Log("Mouse Click");
+                    //MorgueDoor door = rayCastHit.transform.GetComponent<MorgueDoor>();
+                    Button0 zero = rayCastHit.transform.GetComponent<Button0>();
+                    if (zero)
+                    {
+                        box.MorgueAnswer += "0";
+                        Debug.Log(box.test());
+                    }
+
+                    if (box.test() == "011100110110111101101110")
+                    {
+                        doorIsOpening = true;
+                        bedIsOpening = true;
+                    }
+
                 }
-                
-                if (box.test() == "011100110110111101101110")
-                {
-                    doorIsOpening = true;
-                    bedIsOpening = true;
-                }
+
 
             }
-            
-
         }
+        
     }
 }

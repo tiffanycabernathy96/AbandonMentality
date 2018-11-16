@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClickChart : Puzzle {
+public class ClickChart : MonoBehaviour {
 
-    public Image image;
+    public Image chartImg;
+    public Image back;
     //public GameObject chart;
 	// Use this for initialization
 	void Start () {
-        image.enabled = false;
+        chartImg.enabled = false;
+        back.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -27,7 +29,8 @@ public class ClickChart : Puzzle {
                 //ClickChart chart = rayCastHit.transform.GetComponent<ClickChart>();
                 if(chart)
                 {
-                    image.enabled = !image.enabled;
+                    chartImg.enabled = !chartImg.enabled;
+                    back.enabled = !back.enabled;
                 }
                 
 
@@ -36,7 +39,8 @@ public class ClickChart : Puzzle {
         }
         if(Input.GetMouseButtonDown(0))
         {
-            image.enabled = false;
+            chartImg.enabled = false;
+            back.enabled = false;
         }
         
 	}
