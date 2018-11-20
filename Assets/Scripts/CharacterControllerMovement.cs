@@ -77,6 +77,12 @@ public class CharacterControllerMovement : MonoBehaviour
 
                     }
                 }
+                else if (hit.collider.CompareTag("Safe"))
+                {
+                    GameObject safeObj = hit.collider.GetComponent<GameObject>();
+                    safeObj.SetActive(true);
+                
+                }
                 else
                 {
                     puzzleClicked = false;
