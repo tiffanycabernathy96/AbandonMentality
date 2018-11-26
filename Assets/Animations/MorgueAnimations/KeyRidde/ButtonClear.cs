@@ -11,7 +11,7 @@ public class ButtonClear : Puzzle
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetButtonDown("Fire1"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayCastHit;

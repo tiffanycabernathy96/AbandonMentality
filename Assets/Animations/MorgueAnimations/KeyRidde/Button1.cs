@@ -49,8 +49,9 @@ public class Button1 : Puzzle {
                 solved = true;
             }
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetButtonDown("Fire1"))
             {
+                Debug.Log("left clicke");
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit rayCastHit;
 

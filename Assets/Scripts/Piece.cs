@@ -21,4 +21,10 @@ public class Piece : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+    private void Update()
+    {
+        if (found)
+            DestroyGameObj();
+        //TODO put in inventory
+    }
 }

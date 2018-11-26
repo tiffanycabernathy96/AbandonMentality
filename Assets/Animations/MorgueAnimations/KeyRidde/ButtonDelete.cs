@@ -8,7 +8,7 @@ public class ButtonDelete : Puzzle {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetButtonDown("Fire1"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayCastHit;
@@ -25,7 +25,6 @@ public class ButtonDelete : Puzzle {
                     Debug.Log(box.test());
                 }
             }
-
         }
     }
 }

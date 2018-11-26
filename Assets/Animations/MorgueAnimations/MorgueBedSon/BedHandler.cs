@@ -9,7 +9,7 @@ public class BedHandler : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetButtonDown("Fire1"))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayCastHit;

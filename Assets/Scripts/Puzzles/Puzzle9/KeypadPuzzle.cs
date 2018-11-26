@@ -14,7 +14,7 @@ public class KeypadPuzzle : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        Button num0 = b_0.GetComponent<Button>();
+        /*Button num0 = b_0.GetComponent<Button>();
         Button num1 = b_1.GetComponent<Button>();
         Button num2 = b_2.GetComponent<Button>();
         Button num3 = b_3.GetComponent<Button>();
@@ -42,12 +42,12 @@ public class KeypadPuzzle : MonoBehaviour {
         numX.onClick.AddListener(delegate { ButtonPressed(11); });
         back.onClick.AddListener(delegate { ButtonPressed(12); });
 
-        keypadImg.material = m_norm;
+        keypadImg.material = m_norm;*/
     }
     
     void ButtonPressed(int buttonNum)
     {
-        if (keypadImg.enabled == true)
+        /*if (keypadImg.enabled == true)
         {
             switch (buttonNum)
             {
@@ -115,6 +115,6 @@ public class KeypadPuzzle : MonoBehaviour {
                     Time.timeScale = 1;
                     break;
             }
-        }
+        }*/
     }
 }

@@ -50,7 +50,7 @@ public class Button0 : Puzzle {
             }
 
             //shouldnt this be specific for this obj?????
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetButtonDown("Fire1"))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit rayCastHit;

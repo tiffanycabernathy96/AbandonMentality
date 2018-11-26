@@ -37,4 +37,10 @@ public class Puzzle : MonoBehaviour {
             Time.timeScale = 0;
         }
     }
+    public void closePuzzle()
+    {
+        Time.timeScale = 1;
+        puzzleImage.enabled = false;
+        backImage.enabled = false;
+    }
 }
