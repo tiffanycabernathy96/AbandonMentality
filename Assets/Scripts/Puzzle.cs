@@ -22,6 +22,7 @@ public class Puzzle : MonoBehaviour {
     public Image puzzleImage;
     public Image backImage;
     public Material imageMaterial;
+    public int puzzleScene = -1;
     
     public void OpenPuzzle()
     {
@@ -34,6 +35,15 @@ public class Puzzle : MonoBehaviour {
             puzzleImage.material = imageMaterial;
             backImage.enabled = true;
             Time.timeScale = 0;
+        }
+        else if(puzzleScene != -1 && !puzzleCompleted)
+        {
+            LoadScene loader = GetComponent<LoadScene>();
+            if(loader)
+            {
+                loader.LoadSceneByIndex(puzzleScene);
+            }
+            //TODO Load Scene
         }
     }
 }
