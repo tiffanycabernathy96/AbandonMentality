@@ -19,6 +19,8 @@ public class CharacterControllerMovement : MonoBehaviour
     [SerializeField] private Image inventoryImage;
     //[SerializeField] private GameObject maps;
     [SerializeField] private Maps mapsScript;
+    public Inventory inventoryItem;
+    public DayRoomDoor dayRoomDoor;
 
     void Awake()
     {
@@ -64,23 +66,31 @@ public class CharacterControllerMovement : MonoBehaviour
                         Puzzle puzzleSelected = hit.collider.GetComponent<Puzzle>();
                         if (puzzleSelected)
                         {
-                            //navMeshAgent.destination = puzzleSelected.GetTransform().position;
-                            //transform.rotation = puzzleSelected.positionObject.transform.rotation;
                             puzzleSelected.puzzleActivated = true;
                             puzzleSelected.OpenPuzzle();
+                            MovementController(false);
                         }
 
                     }
                     else if (hit.collider.CompareTag("Piece"))
                     {
                         pieceClicked = true;
-                        navMeshAgent.destination = hit.point;
-                        piecePosition = hit.point;
                         pieceSelected = hit.collider.GetComponent<Piece>();
                         if (pieceSelected)
                         {
                             pieceSelected.found = true;
+                            inventoryItem.addItemToInventory(pieceSelected.imageMat, pieceSelected.pieceName);
+                            if (pieceSelected.pieceName == "KeyE")
+                                dayRoomDoor.keyFound = true;
+                            pieceSelected.DestroyGameObj();
+                           
+                            pieceSelected.enabled = false;
+                            inventoryItem.showNewItem();
                         }
+                    }
+                    else if(hit.collider.CompareTag("DayRoomDoor"))
+                    {
+                        dayRoomDoor.openDoors();
                     }
                     else
                     {
@@ -95,7 +105,11 @@ public class CharacterControllerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             //Display/Hide Inventory
-            inventoryImage.enabled = !inventoryImage.enabled;
+            if(inventoryImage.enabled)
+                inventoryItem.disableInventory();
+            else
+                inventoryItem.enableInventory();
+            //inventoryImage.enabled = !inventoryImage.enabled;
         }
         else if (Input.GetKeyDown(KeyCode.P))
         {
@@ -107,14 +121,23 @@ public class CharacterControllerMovement : MonoBehaviour
             if (mapsShown)
             {
                 mapsScript.DisplayMaps(navMeshAgent.transform.position.y);
-                Time.timeScale = 0;
+                MovementController(false);
+                //Time.timeScale = 0;
             }
             else
             {
                 mapsScript.HideMaps();
-                Time.timeScale = 1;
+                MovementController(true);
+                //Time.timeScale = 1;
             }
                 
         }
+    }
+    public void MovementController(bool enableVal)
+    {
+        if (enableVal)
+            Time.timeScale = 1;
+        else
+            Time.timeScale = 0;
     }
 }

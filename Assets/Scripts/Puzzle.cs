@@ -25,7 +25,7 @@ public class Puzzle : MonoBehaviour {
     
     public void OpenPuzzle()
     {
-        if(puzzleImage)
+        if(puzzleImage && !puzzleCompleted)
         {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             Canvas currentCanvas = FindObjectOfType<Canvas>();

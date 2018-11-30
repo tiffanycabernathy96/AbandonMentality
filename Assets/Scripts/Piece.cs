@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Piece : MonoBehaviour {
     public bool found = false;
+    public Material imageMat;
+    public string pieceName;
     private Collider navMeshAgent;
     private Collider collider;
     void Awake()

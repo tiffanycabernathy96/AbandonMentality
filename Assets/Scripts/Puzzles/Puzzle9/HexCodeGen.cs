@@ -14,11 +14,11 @@ public class HexCodeGen : MonoBehaviour {
     List<string> hexNumbers = new List<string>();
     List<int> decimalNumbers = new List<int>();
     List<int> lockCode = new List<int>();
-    private void Start()
+    private void Awake()
     {
         GenerateCode();
     }
-    void GenerateCode(int lockDigits = 5)
+    public void GenerateCode(int lockDigits = 5)
     {
         System.Random rand = new System.Random();
         for (int i = 0; i < lockDigits; i++)
@@ -44,15 +44,15 @@ public class HexCodeGen : MonoBehaviour {
         }
         hexNumbers.Add(hexVal);
     }
-    List<string> GetHexDigits()
+    public List<string> GetHexDigits()
     {
         return hexNumbers;
     }
-    List<int> GetDecimalNumbers()
+    public List<int> GetDecimalNumbers()
     {
         return decimalNumbers;
     }
-    List<int> GetLockCode()
+    public List<int> GetLockCode()
     {
         return lockCode;
     }

@@ -4,16 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class KeypadPuzzle : MonoBehaviour {
-
+    public Puzzle keypadPuzzle; 
     public Button b_1,b_2,b_3,b_4,b_5,b_6,b_7,b_8,b_9,b_0,b_pound,b_X, b_back;
     public Image keypadImg, backImg;
     public OpenDoor door;
+    public Text hexCodeText;
     List<int> inputtedNumbers = new List<int>();
     public Material m_1, m_2, m_3, m_4, m_5, m_6, m_7, m_8, m_9, m_0, m_pound, m_X, m_valid, m_invalid, m_norm;
     public Light red, green;
+    HexCodeGen generator;
+    List<int> lockCode = new List<int>();
     // Use this for initialization
-    void Awake () {
+    void Awake() {
+        generator = GetComponent<HexCodeGen>();
+        generator.GenerateCode();
+        lockCode = generator.GetLockCode();
         keypadImg.material = m_norm;
+        List<string> hexCode = generator.GetHexDigits();
+        hexCodeText.text = hexCode[0].ToString() + "\n" + hexCode[1].ToString() + "\n" + hexCode[2].ToString() + "\n" + hexCode[3].ToString() + "\n" + hexCode[4].ToString();
     }
    
     public void ButtonPressed(int buttonNum)
@@ -64,8 +72,9 @@ public class KeypadPuzzle : MonoBehaviour {
                     break;
                 case 10: //Pound
                     keypadImg.material = m_pound;
-                    if (inputtedNumbers.Count == 5)
+                    if (inputtedNumbers.Count == 5 && isValid())
                     {
+                        keypadPuzzle.puzzleCompleted = true;
                         keypadImg.material = m_valid;
                         door.openDoor();
                         red.enabled = false;
@@ -93,5 +102,15 @@ public class KeypadPuzzle : MonoBehaviour {
         {
             keypadImg.material = m_norm;
         }
+    }
+    bool isValid()
+    {
+        bool valid = true;
+        for(int i = 0; i < 5; i++)
+        {
+            if (lockCode[i] != inputtedNumbers[i])
+                valid = false;
+        }
+        return valid;
     }
 }
