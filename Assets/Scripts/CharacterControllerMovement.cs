@@ -102,10 +102,14 @@ public class CharacterControllerMovement : MonoBehaviour
                 }
             }
         }
+        
+    }
+    private void Update()
+    {
         if (Input.GetKeyDown(KeyCode.I))
         {
             //Display/Hide Inventory
-            if(inventoryImage.enabled)
+            if (inventoryImage.enabled)
                 inventoryItem.disableInventory();
             else
                 inventoryItem.enableInventory();
@@ -130,7 +134,7 @@ public class CharacterControllerMovement : MonoBehaviour
                 MovementController(true);
                 //Time.timeScale = 1;
             }
-                
+
         }
     }
     public void MovementController(bool enableVal)
