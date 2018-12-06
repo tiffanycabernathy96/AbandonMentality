@@ -7,12 +7,6 @@ public class Piece : MonoBehaviour {
     public bool found = false;
     public Material imageMat;
     public string pieceName;
-    private Collider navMeshAgent;
-    private Collider collider;
-    void Awake()
-    {
-        collider = GetComponent<BoxCollider>();    
-    }
     public void DestroyGameObj()
     {
         Destroy(gameObject);
