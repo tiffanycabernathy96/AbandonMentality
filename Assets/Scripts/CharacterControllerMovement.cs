@@ -21,12 +21,16 @@ public class CharacterControllerMovement : MonoBehaviour
     [SerializeField] private Maps mapsScript;
     public Inventory inventoryItem;
     public DayRoomDoor dayRoomDoor;
+    public MorguePuzzle morgueDoor;
+    public Text screenText;
+    public Image textBox;
 
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         if (defaultCursorTexture)
             Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.Auto);
+
         //mapsScript = maps.GetComponent<Maps>();
         //int testing = 0;
     }
@@ -43,7 +47,7 @@ public class CharacterControllerMovement : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit, 25))
             {
-                if (hit.collider.CompareTag("Puzzle") || hit.collider.CompareTag("Piece"))
+                if (hit.collider.CompareTag("Puzzle") || hit.collider.CompareTag("Piece") || hit.collider.CompareTag("DayRoomDoor") || hit.collider.CompareTag("MorgueDoor"))
                 {
                     if (interactableCursorTexture)
                         Cursor.SetCursor(interactableCursorTexture, Vector2.zero, CursorMode.Auto);
@@ -66,9 +70,17 @@ public class CharacterControllerMovement : MonoBehaviour
                         Puzzle puzzleSelected = hit.collider.GetComponent<Puzzle>();
                         if (puzzleSelected)
                         {
-                            puzzleSelected.puzzleActivated = true;
-                            puzzleSelected.OpenPuzzle();
-                            MovementController(false);
+                            //puzzleSelected.puzzleActivated = true;
+                            bool testing = puzzleSelected.puzzleActivated;
+                            if (puzzleSelected.puzzleActivated && (puzzleSelected.puzzleImage || puzzleSelected.puzzleScene != -1))
+                            {
+                                puzzleSelected.OpenPuzzle();
+                                MovementController(false);
+                            }
+                            if(!puzzleSelected.puzzleActivated)
+                            {
+                                StartCoroutine(ShowMessage(puzzleSelected.puzzleUnActivactedString, 3));
+                            }
                         }
 
                     }
@@ -91,6 +103,10 @@ public class CharacterControllerMovement : MonoBehaviour
                     else if(hit.collider.CompareTag("DayRoomDoor"))
                     {
                         dayRoomDoor.openDoors();
+                    }
+                    else if(hit.collider.CompareTag("MorgueDoor"))
+                    {
+                        morgueDoor.openDoors();
                     }
                     else
                     {
@@ -126,13 +142,11 @@ public class CharacterControllerMovement : MonoBehaviour
             {
                 mapsScript.DisplayMaps(navMeshAgent.transform.position.y);
                 MovementController(false);
-                //Time.timeScale = 0;
             }
             else
             {
                 mapsScript.HideMaps();
                 MovementController(true);
-                //Time.timeScale = 1;
             }
 
         }
@@ -140,8 +154,24 @@ public class CharacterControllerMovement : MonoBehaviour
     public void MovementController(bool enableVal)
     {
         if (enableVal)
+        {
+            Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.Auto);
             Time.timeScale = 1;
+        }
         else
+        {
             Time.timeScale = 0;
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        }
+            
+    }
+    IEnumerator ShowMessage(string message, float delay)
+    {
+        screenText.text = message;
+        screenText.enabled = true;
+        textBox.enabled = true;
+        yield return new WaitForSeconds(delay);
+        screenText.enabled = false;
+        textBox.enabled = false;
     }
 }

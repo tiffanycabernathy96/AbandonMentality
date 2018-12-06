@@ -31,7 +31,7 @@ public class ColorChange : MonoBehaviour
         {
             i_to = System.Array.IndexOf(materials, rend_to.sharedMaterial);
             i_from = System.Array.IndexOf(materials, rend_from.sharedMaterial);
-            print(materials.Length);
+
             if (i_to== materials.Length-1 )
                {
                 i_to = -1;
@@ -40,8 +40,7 @@ public class ColorChange : MonoBehaviour
             {
                 i_from = -1;
             }
-
-            print(i_to);
+            
             rend_to.sharedMaterial = materials[i_to + 1];
             rend_from.sharedMaterial = materials[i_from + 1];
            }

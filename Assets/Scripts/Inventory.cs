@@ -10,6 +10,10 @@ public class Inventory : MonoBehaviour {
     public Text hexCodeDigits;
     public string[] pieceNames = new string[32];
     int emptySlot = 1;
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
     public void addItemToInventory(Material item, string itemName)
     {
         int inventorySlot = findNextEmptyInventorySlot();
@@ -87,7 +91,10 @@ public class Inventory : MonoBehaviour {
         inventoryImage.enabled = true;
         hexCodeDigits.enabled = true;
         for (int i = 0; i < emptySlot; i++)
+        {
             inventorySlots[i].enabled = true;
+        }
+            
     }
     public void showNewItem()
     {

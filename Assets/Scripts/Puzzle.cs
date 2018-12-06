@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class Puzzle : MonoBehaviour {
-    //This is used in order to determine where the character should move when the puzzle is clicked
-    public GameObject positionObject;
+    public string morgueAnswer;
     //This needs to contain all the pieces needed to complete this puzzle. 
     public List<Piece> puzzlePieces;
     //Has the player found and interacted with this puzzle yet?
@@ -12,12 +11,11 @@ public class Puzzle : MonoBehaviour {
     //Has the player found and completed this puzzle yet?
     public bool puzzleCompleted = false;
 
-    //Simple function to return the position of the object. 
-    public Transform GetTransform()
+    public string puzzleUnActivactedString;
+    public string MorgueAnswer()
     {
-        return positionObject.transform;
+        return morgueAnswer;
     }
-
     //If you are going use canvas for your puzzle this can be used. 
     public Image puzzleImage;
     public Image backImage;
@@ -26,7 +24,7 @@ public class Puzzle : MonoBehaviour {
     
     public void OpenPuzzle()
     {
-        if(puzzleImage && !puzzleCompleted)
+        if(puzzleActivated && puzzleImage && !puzzleCompleted)
         {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             Canvas currentCanvas = FindObjectOfType<Canvas>();
@@ -43,7 +41,6 @@ public class Puzzle : MonoBehaviour {
             {
                 loader.LoadSceneByIndex(puzzleScene);
             }
-            //TODO Load Scene
         }
     }
 }

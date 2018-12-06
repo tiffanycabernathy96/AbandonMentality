@@ -9,7 +9,8 @@ public class Maps : MonoBehaviour {
     public Image rightButton;
     public Image backButton;
     public List<Image> floors; //0 is 1st, 1 is 2nd, 2 is basement
-    public double[] floorPositions = {1.051798, 4.843465, -2.823202};
+    public float[] floorPositions = {1.051798f, 4.843465f, -2.823202f};
+    public CharacterControllerMovement character;
 
 
     private int currentFloorDisplayed = -1;
@@ -20,22 +21,25 @@ public class Maps : MonoBehaviour {
         rightButton.enabled = true;
         backButton.enabled = true;
         //Determine What Floor the User is on.
-        if(playerYLocation> floorPositions[0])
-        {
-            //Second Floor
-            floors[1].enabled = true;
-        }
-        else if(playerYLocation > floorPositions[2])
+        if(System.Math.Abs(playerYLocation -floorPositions[0]) < 1e-3)
         {
             //First Floor
             floors[0].enabled = true;
+            currentFloorDisplayed = 0;
         }
-        else
+        else if(System.Math.Abs(playerYLocation - floorPositions[1]) < 1e-3)
+        {
+            //Second Floor
+            floors[1].enabled = true;
+            currentFloorDisplayed = 1;
+        }
+        else if(System.Math.Abs(playerYLocation - floorPositions[2]) < 1e-3)
         {
             //Basement
             floors[2].enabled = true;
+            currentFloorDisplayed = 2;
         }
-        int test = 0;
+        
     }
     public void HideMaps()
     {
@@ -46,6 +50,7 @@ public class Maps : MonoBehaviour {
         {
             floor.enabled = false;
         }
+        character.MovementController(true);
     }
     public void ShowNextFloor(int direction)
     {
