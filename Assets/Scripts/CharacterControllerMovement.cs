@@ -25,6 +25,9 @@ public class CharacterControllerMovement : MonoBehaviour
     public Text screenText;
     public Image textBox;
 
+    public Image endGameBackground;
+    public Text endGameText;
+
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -45,7 +48,7 @@ public class CharacterControllerMovement : MonoBehaviour
         RaycastHit hit;
         if (Time.timeScale == 1)
         {
-            if (Physics.Raycast(ray, out hit, 25))
+            if (Physics.Raycast(ray, out hit, 35))
             {
                 if (hit.collider.CompareTag("Puzzle") || hit.collider.CompareTag("Piece") || hit.collider.CompareTag("DayRoomDoor") || hit.collider.CompareTag("MorgueDoor"))
                 {
@@ -61,7 +64,7 @@ public class CharacterControllerMovement : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
             {
                 //out hit allows us to get more information about what we hit by passig it by reference
-                if (Physics.Raycast(ray, out hit, 25))
+                if (Physics.Raycast(ray, out hit, 35))
                 {
                     if (hit.collider.CompareTag("Puzzle"))
                     {
@@ -70,8 +73,6 @@ public class CharacterControllerMovement : MonoBehaviour
                         Puzzle puzzleSelected = hit.collider.GetComponent<Puzzle>();
                         if (puzzleSelected)
                         {
-                            //puzzleSelected.puzzleActivated = true;
-                            bool testing = puzzleSelected.puzzleActivated;
                             if (puzzleSelected.puzzleActivated && (puzzleSelected.puzzleImage || puzzleSelected.puzzleScene != -1))
                             {
                                 puzzleSelected.OpenPuzzle();
@@ -107,6 +108,19 @@ public class CharacterControllerMovement : MonoBehaviour
                     else if(hit.collider.CompareTag("MorgueDoor"))
                     {
                         morgueDoor.openDoors();
+                    }
+                    else if(hit.collider.CompareTag("ExitDoor"))
+                    {
+                        if(GameData.ExitOpen)
+                        {
+                            StartCoroutine(ShowMessage("Yes! It is unlocked!", 2));
+                            StartCoroutine(EndGame());
+                        }
+                        else
+                        {
+                            StartCoroutine(ShowMessage("I have to find a way to open this door", 2));
+                        }
+                        
                     }
                     else
                     {
@@ -173,5 +187,16 @@ public class CharacterControllerMovement : MonoBehaviour
         yield return new WaitForSeconds(delay);
         screenText.enabled = false;
         textBox.enabled = false;
+    }
+
+    IEnumerator EndGame()
+    {
+        endGameBackground.enabled = true;
+        endGameText.enabled = true;
+        yield return new WaitForSeconds(5);
+        LoadScene sceneLoader = GetComponent<LoadScene>();
+        endGameText.enabled = false;
+        endGameBackground.enabled = false;
+        sceneLoader.LoadSceneByIndex(0);
     }
 }

@@ -8,10 +8,7 @@ public class LoadScene : MonoBehaviour {
     private int previousIndex = 0;
     private int currentIndex = 0;
     public CharacterControllerMovement character;
-    public void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+
     public void LoadSceneByIndex(int sceneIndex)
     {
         if(sceneIndex == 3)

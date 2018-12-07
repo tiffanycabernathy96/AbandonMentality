@@ -7,4 +7,5 @@ public class GameData
     public static bool DayRoomPuzzle = false;
     public static Vector3 charPosition;
     public static Quaternion charRotation;
+    public static bool ExitOpen = false;
 }
